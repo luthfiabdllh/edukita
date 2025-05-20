@@ -4,8 +4,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 
 interface FaqItem {
   id: string;
@@ -17,10 +15,6 @@ interface Faq3Props {
   heading?: string;
   description?: string;
   items?: FaqItem[];
-  supportHeading?: string;
-  supportDescription?: string;
-  supportButtonText?: string;
-  supportButtonUrl?: string;
 }
 
 const faqItems = [
@@ -71,10 +65,6 @@ const Faq3 = ({
   heading = "Frequently asked questions",
   description = "Find answers to common questions about our products. Can't find what you're looking for? Contact our support team.",
   items = faqItems,
-  supportHeading = "Need more support?",
-  supportDescription = "Our dedicated support team is here to help you with any questions or concerns. Get in touch with us for personalized assistance.",
-  supportButtonText = "Contact Support",
-  supportButtonUrl = "https://www.shadcnblocks.com",
 }: Faq3Props) => {
   return (
     <section className="py-32">
