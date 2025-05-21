@@ -1,26 +1,26 @@
 "use client"
 
 import { useRef } from "react"
-import { Brain, BarChart3, Smartphone } from "lucide-react"
+import Image from "next/image"
 
 export default function Features() {
   const ref = useRef(null)
 
   const features = [
     {
-      icon: <Brain className="w-12 h-12 text-blue-400" />,
-      title: "Scrolling Interface",
-      description: "Replace your scrolling addiction with productive studying.",
+      icon: "/icon/icon-school.svg",
+      title: "Comprehensive Database",
+      description: "Gain access to a detailed database covering schools across Indonesia, including locations, facilities, academic programs, and enrollment statistics.",
     },
     {
-      icon: <BarChart3 className="w-12 h-12 text-blue-500" />,
-      title: "Competitive Learning",
-      description: "Healthy leaderboard competition to accelerate your growth.",
+      icon: "/icon/icon-statistic.svg",
+      title: "Latest Data",
+      description: "Ensure accuracy with continuously updated school information, reflecting the latest trends, facility availability, and institutional changes.",
     },
     {
-      icon: <Smartphone className="w-12 h-12 text-blue-600" />,
-      title: "Mode Selection",
-      description: "Different modes to tailor to your needs: Multiple choice, Flashcards, and Written Form.",
+      icon: "/icon/icon-pin.svg",
+      title: "School Mapping",
+      description: "Easily locate schools and explore surrounding facilities with an intuitive mapping system designed for effortless navigation and decision-making.Let me know if you.",
     },
   ]
 
@@ -28,8 +28,8 @@ export default function Features() {
     <section className="py-20 px-4 bg-opacity-60" id="features">
       <div className="container mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">
-          <span className="bg-clip-text font-semibold ">
-            Transform Your Learning Habits
+          <span className="bg-clip-text font-bold ">
+            Our Services
           </span>
         </h2>
 
@@ -43,14 +43,19 @@ export default function Features() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="p-8 rounded-xl border border-gray-800 hover:border-blue-500 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20"
-              style={{
-                transitionDelay: `${index * 0.1 + 0.2}s`,
-              }}
+              className="p-8 bg-(--card) rounded-xl border border-gray-800 hover:border-blue-500 transition-all duration-300 flex flex-col items-center hover:shadow-lg hover:shadow-blue-500/20"
             >
-              <div className="mb-4">{feature.icon}</div>
+              <div className="mb-6 w-24 h-24 rounded-full bg-(--card-foreground) flex justify-center items-center mx-auto">
+                <Image
+                  src={feature.icon}
+                  alt={feature.title}
+                  width={32}
+                  height={32}
+                  className="w-12 h-12"
+                />
+              </div>
               <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-              <p className="text-gray-400">{feature.description}</p>
+              <p className="text-center text-gray-400">{feature.description}</p>
             </div>
           ))}
         </div>

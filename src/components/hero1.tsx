@@ -28,7 +28,7 @@ interface Hero1Props {
 const Hero1 = ({
   badge = "Education",
   heading = "Education Database for Indonesia",
-  description = "Access comprehensive information and supporting facilities across the country.",
+  description = "Explore comprehensive and accurate school information, including locations, available facilities, and statistical insights.",
   buttons = {
     primary: {
       text: "Start for free",
