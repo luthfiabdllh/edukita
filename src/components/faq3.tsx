@@ -20,44 +20,39 @@ interface Faq3Props {
 const faqItems = [
   {
     id: "faq-1",
-    question: "What is the return policy?",
+    question: "What is Edukita?",
     answer:
       "You can return any item within 30 days of purchase for a full refund, provided it is in its original condition.",
   },
   {
     id: "faq-2",
-    question: "How do I track my order?",
+    question: "Is the data provided accurate?",
     answer:
       "Once your order is shipped, you will receive an email with a tracking number. You can use this number on our website to track your order.",
   },
   {
     id: "faq-3",
-    question: "Do you offer international shipping?",
+    question: "Is the data provided accurate?",
     answer:
       "Yes, we ship to most countries worldwide. Shipping costs and delivery times vary depending on the destination.",
   },
   {
     id: "faq-4",
-    question: "Can I change my order after it has been placed?",
+    question: "How can school data be updated?",
     answer:
       "You can change your order within 24 hours of placing it by contacting our customer service team.",
   },
-  {
+    {
     id: "faq-5",
-    question: "What payment methods do you accept?",
-    answer: "We accept all major credit cards, PayPal, and Apple Pay.",
+    question: "What privacy policy applies?",
+    answer:
+      "You can change your order within 24 hours of placing it by contacting our customer service team.",
   },
-  {
+    {
     id: "faq-6",
-    question: "How can I contact customer support?",
+    question: "How can I contact customer service?",
     answer:
-      "You can reach our customer support team via email at support@example.com or by calling 1-800-123-4567.",
-  },
-  {
-    id: "faq-7",
-    question: "Are there any discounts for bulk purchases?",
-    answer:
-      "Yes, we offer discounts for bulk purchases. Please contact our sales team for more information.",
+      "You can change your order within 24 hours of placing it by contacting our customer service team.",
   },
 ];
 
@@ -67,7 +62,7 @@ const Faq3 = ({
   items = faqItems,
 }: Faq3Props) => {
   return (
-    <section className="py-32" id="faq">
+    <section className="py-20" id="faq">
       <div className="container space-y-16">
         <div className="mx-auto flex max-w-3xl flex-col text-left md:text-center">
           <h2 className="mb-3 text-3xl font-semibold md:mb-4 lg:mb-6 lg:text-4xl">

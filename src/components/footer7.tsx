@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 const sections = [
@@ -33,15 +34,13 @@ interface Footer7Props {
     url: string;
     src: string;
     alt: string;
-    title: string;
   };
 }
 const Footer7 = ({
   logo = {
-    url: "https://www.shadcnblocks.com",
-    src: "https://shadcnblocks.com/images/block/logos/shadcnblockscom-icon.svg",
+    url: "/",
+    src: "logo.svg",
     alt: "logo",
-    title: "Shadcnblocks.com",
   },
 }: Footer7Props) => {
   return (
@@ -51,15 +50,13 @@ const Footer7 = ({
           <div className="flex w-full flex-col items-center justify-between gap-6 lg:items-start">
             {/* Logo */}
             <div className="flex items-center gap-2 lg:justify-start">
-              <a href="https://shadcnblocks.com">
+              <Link href="/">
                 <img
                   src={logo.src}
                   alt={logo.alt}
-                  title={logo.title}
                   className="h-8"
                 />
-              </a>
-              <h2 className="text-xl font-semibold">{logo.title}</h2>
+              </Link>
             </div>
             <p className="text-sm text-muted-foreground">
               Access comprehensive information and supporting facilities across the country.

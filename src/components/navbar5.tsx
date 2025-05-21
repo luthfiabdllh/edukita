@@ -26,6 +26,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useRouter } from 'next/navigation';
+import Image from "next/image";
+import Link from "next/link";
 
 const Navbar5 = () => {
   const features = [
@@ -67,22 +69,21 @@ const Navbar5 = () => {
   };
 
   return (
-    <section className="py-4">
+    <section className="pb-4">
       <div className="container">
         <nav className="flex items-center justify-between">
-          <a
-            href="https://www.shadcnblocks.com"
+          <Link
+            href="/"
             className="flex items-center gap-2"
           >
-            <img
-              src="https://shadcnblocks.com/images/block/logos/shadcnblockscom-icon.svg"
-              className="max-h-8"
+            <Image
+              src="logo.svg"
+              width={32}
+              height={32}
+              className="w-32"
               alt="Shadcn UI Navbar"
             />
-            <span className="text-lg font-semibold tracking-tighter">
-              Shadcnblocks.com
-            </span>
-          </a>
+          </Link>
           <NavigationMenu className="hidden lg:block">
             <NavigationMenuList>
               <NavigationMenuItem>

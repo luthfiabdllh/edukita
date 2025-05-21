@@ -2,10 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import Link from "next/link";
 
 const Contact2 = () => {
   return (
-    <section className="py-32" id="contact">
+    <section className="py-20" id="contact">
       <div className="container">
         <div className="mx-auto flex max-w-screen-xl flex-col justify-between gap-10 lg:flex-row lg:gap-20">
           <div className="mx-auto flex max-w-sm flex-col justify-between gap-10">
@@ -25,13 +26,13 @@ const Contact2 = () => {
               <ul className="ml-4 list-disc">
                 <li>
                   <span className="font-bold">Phone: </span>
-                  (123) 34567890
+                  (+62) 857-2638-7561
                 </li>
                 <li>
                   <span className="font-bold">Email: </span>
-                  <a href="" className="underline">
-                    your-email@example.com
-                  </a>
+                  <Link href="" className="underline">
+                    edukitaindonesia@mail.com
+                  </Link>
                 </li>
               </ul>
             </div>
