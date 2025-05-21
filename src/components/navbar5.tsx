@@ -25,6 +25,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useRouter } from 'next/navigation';
 
 const Navbar5 = () => {
   const features = [
@@ -60,6 +61,11 @@ const Navbar5 = () => {
     },
   ];
 
+  const router = useRouter();
+  const buttonClick = () => {
+    router.push('/dashboard');
+  };
+
   return (
     <section className="py-4">
       <div className="container">
@@ -80,7 +86,7 @@ const Navbar5 = () => {
           <NavigationMenu className="hidden lg:block">
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Features</NavigationMenuTrigger>
+                <NavigationMenuTrigger>Products</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <div className="grid w-[600px] grid-cols-2 p-3">
                     {features.map((feature, index) => (
@@ -104,23 +110,23 @@ const Navbar5 = () => {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink
-                  href="#"
+                  href="#hero"
                   className={navigationMenuTriggerStyle()}
                 >
-                  Products
+                  About
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink
-                  href="#"
+                  href="#team"
                   className={navigationMenuTriggerStyle()}
                 >
-                  Resources
+                  Team
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink
-                  href="#"
+                  href="#contact"
                   className={navigationMenuTriggerStyle()}
                 >
                   Contact
@@ -129,8 +135,7 @@ const Navbar5 = () => {
             </NavigationMenuList>
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
-            <Button variant="outline">Sign in</Button>
-            <Button>Start for free</Button>
+            <Button onClick={buttonClick}>Start for free</Button>
           </div>
           <Sheet>
             <SheetTrigger asChild className="lg:hidden">
@@ -196,8 +201,7 @@ const Navbar5 = () => {
                   </a>
                 </div>
                 <div className="mt-6 flex flex-col gap-4">
-                  <Button variant="outline">Sign in</Button>
-                  <Button>Start for free</Button>
+                  <Button onClick={buttonClick}>Start for free</Button>
                 </div>
               </div>
             </SheetContent>

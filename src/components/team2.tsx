@@ -10,7 +10,7 @@ const people = [
     role: "Supervisor",
     description:
       "Oversees project execution, ensuring that all aspects run smoothly and meet quality standards.",
-    avatar: "https://shadcnblocks.com/images/block/avatar-1.webp",
+    avatar: "/avatars/avatar1.svg",
     github: "#",
     linkedin: "https://www.linkedin.com/in/dimal-karim-ahmad/",
     instagram: "#",
@@ -20,7 +20,7 @@ const people = [
     name: "Rifqi Renaldo",
     role: "UI/UX Designer",
     description: "Designs user-friendly interfaces to provide an optimal and seamless user experience.",
-    avatar: "https://shadcnblocks.com/images/block/avatar-2.webp",
+    avatar: "/avatars/avatar2.svg",
     github: "#",
     linkedin: "https://www.linkedin.com/in/rifqi-renaldo-2439892b8/",
     instagram: "#",
@@ -30,7 +30,7 @@ const people = [
     name: "Ahmad Luthfi Abdillah",
     role: "Frontend Developer",
     description: "Develops responsive visual elements and interactions to enhance application performance.",
-    avatar: "https://shadcnblocks.com/images/block/avatar-4.webp",
+    avatar: "/avatars/avatar3.svg",
     github: "https://github.com/luthfiabdllh",
     linkedin: "http://linkedin.com/in/luthfi-abdllh/",
     instagram: "https://instagram.com/luthfi_abdllh",
@@ -40,7 +40,7 @@ const people = [
     name: "Devangga Arya Hartanta",
     role: "Frontend Developer",
     description: "Builds functional UI components while ensuring an appealing and efficient design",
-    avatar: "https://shadcnblocks.com/images/block/avatar-3.webp",
+    avatar: "/avatars/avatar4.svg",
     github: "#",
     linkedin: "https://www.linkedin.com/in/devangga-arya-747550229",
     instagram: "#",
@@ -50,7 +50,7 @@ const people = [
     name: "Asyifa Dzaky Maulana A",
     role: "Backend Developer",
     description: "Manages system architecture and database operations to support backend stability.",
-    avatar: "https://shadcnblocks.com/images/block/avatar-5.webp",
+    avatar: "/avatars/avatar5.svg",
     github: "#",
     linkedin: "https://www.linkedin.com/in/asyifa-dzaky-maulana-aditria/",
     instagram: "#",
@@ -60,7 +60,7 @@ const people = [
     name: "Aurelius Bevan Yudira P",
     role: "Backend Developer",
     description: "Develops business logic and APIs to ensure a scalable and reliable system.",
-    avatar: "https://shadcnblocks.com/images/block/avatar-7.webp",
+    avatar: "/avatars/avatar6.svg",
     github: "#",
     linkedin: "#",
     instagram: "#",
@@ -70,7 +70,7 @@ const people = [
     name: "Muhammad Najwan Fadlillah",
     role: "Data Scientist",
     description: "Analyzes and processes data to generate insights that aid decision-making within the project.",
-    avatar: "https://shadcnblocks.com/images/block/avatar-6.webp",
+    avatar: "/avatars/avatar7.svg",
     github: "#",
     linkedin: "https://www.linkedin.com/in/muhammadnajwanf/",
     instagram: "#",
@@ -79,7 +79,7 @@ const people = [
 
 const Team2 = () => {
   return (
-    <section className="py-32">
+    <section className="py-32" id="team">
       <div className="container flex flex-col items-start text-left">
         <p className="semibold">Meet Our team</p>
         <h2 className="my-6 text-2xl font-bold text-pretty lg:text-4xl">

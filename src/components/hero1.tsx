@@ -2,6 +2,8 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import Image from "next/image";
 
 interface Hero1Props {
   badge?: string;
@@ -24,26 +26,26 @@ interface Hero1Props {
 }
 
 const Hero1 = ({
-  badge = "✨ Your Website Builder",
-  heading = "Blocks Built With Shadcn & Tailwind",
-  description = "Finely crafted components built with React, Tailwind and Shadcn UI. Developers can copy and paste these blocks directly into their project.",
+  badge = "Education",
+  heading = "Education Database for Indonesia",
+  description = "Access comprehensive information and supporting facilities across the country.",
   buttons = {
     primary: {
-      text: "Discover all components",
-      url: "https://www.shadcnblocks.com",
+      text: "Start for free",
+      url: "/dashboard",
     },
     secondary: {
-      text: "View on GitHub",
-      url: "https://www.shadcnblocks.com",
+      text: "Learn More",
+      url: "#features",
     },
   },
   image = {
-    src: "https://www.shadcnblocks.com/images/block/placeholder-1.svg",
-    alt: "Hero section demo image showing interface components",
+    src: "/images/hero.svg",
+    alt: "Collaborative learning platform interface",
   },
 }: Hero1Props) => {
   return (
-    <section className="py-32">
+    <section className="py-32" id="hero">
       <div className="container">
         <div className="grid items-center gap-8 lg:grid-cols-2">
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
@@ -62,23 +64,26 @@ const Hero1 = ({
             <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
               {buttons.primary && (
                 <Button asChild className="w-full sm:w-auto">
-                  <a href={buttons.primary.url}>{buttons.primary.text}</a>
+                  <Link href={buttons.primary.url}>{buttons.primary.text}</Link>
                 </Button>
               )}
               {buttons.secondary && (
                 <Button asChild variant="outline" className="w-full sm:w-auto">
-                  <a href={buttons.secondary.url}>
+                  <Link href={buttons.secondary.url}>
                     {buttons.secondary.text}
                     <ArrowRight className="size-4" />
-                  </a>
+                  </Link>
                 </Button>
               )}
             </div>
           </div>
-          <img
+          <Image
             src={image.src}
             alt={image.alt}
-            className="max-h-96 w-full rounded-md object-cover"
+            priority
+            width={500}
+            height={500}
+            className="w-full rounded-md"
           />
         </div>
       </div>

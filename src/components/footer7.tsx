@@ -13,17 +13,15 @@ const sections = [
   {
     title: "Company",
     links: [
-      { name: "About", href: "#" },
-      { name: "Team", href: "#" },
-      { name: "Blog", href: "#" },
-      { name: "Careers", href: "#" },
+      { name: "About", href: "#hero" },
+      { name: "Team", href: "#team" },
+      { name: "Contact", href: "#contact" },
     ],
   },
   {
     title: "Resources",
     links: [
-      { name: "Help", href: "#" },
-      { name: "Sales", href: "#" },
+      { name: "FAQ", href: "#faq" },
       { name: "Advertise", href: "#" },
       { name: "Privacy", href: "#" },
     ],
@@ -47,7 +45,7 @@ const Footer7 = ({
   },
 }: Footer7Props) => {
   return (
-    <section className="py-32">
+    <section className="py-32" id="footer">
       <div className="container">
         <div className="flex w-full flex-col items-center justify-between gap-10 text-center lg:flex-row lg:items-start lg:text-left">
           <div className="flex w-full flex-col items-center justify-between gap-6 lg:items-start">
