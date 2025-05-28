@@ -8,7 +8,7 @@ import {
 interface FaqItem {
   id: string;
   question: string;
-  answer: string;
+  answer: React.ReactNode;
 }
 
 interface Faq3Props {
@@ -21,38 +21,60 @@ const faqItems = [
   {
     id: "faq-1",
     question: "What is Edukita?",
-    answer:
-      "You can return any item within 30 days of purchase for a full refund, provided it is in its original condition.",
-  },
-  {
-    id: "faq-2",
-    question: "Is the data provided accurate?",
-    answer:
-      "Once your order is shipped, you will receive an email with a tracking number. You can use this number on our website to track your order.",
+    answer: (
+      <div>
+        <p>Edukita is a prototype open-data interoperability system developed under this project to map and monitor educational infrastructure in Yogyakarta. It features:</p>
+        <ul className="list-disc pl-6 space-y-1 mt-2">
+          <li>Interactive GIS Dashboard: Real-time visualization of school distribution, facility gaps, and regional disparities.</li>
+          <li>API Integration: Seamless data exchange with Dapodik, BPS, and Mapbox.</li>
+          <li>Stakeholder Tools: Supports decision-making for local governments and educators.</li>
+        </ul>
+        <p className="mt-2">The system aligns with SDG 4 (Quality Education) and serves as a scalable model for national adoption.</p>
+      </div>
+    ),
   },
   {
     id: "faq-3",
     question: "Is the data provided accurate?",
-    answer:
-      "Yes, we ship to most countries worldwide. Shipping costs and delivery times vary depending on the destination.",
+    answer: "The system integrates data from official sources with a documented accuracy rate of 95% during testing. Discrepancies (e.g., missing coordinates, outdated facility records) are flagged for review. Users may report inaccuracies via the dashboard's Feedback feature, triggering a 48-hour verification process by the project team.",
   },
   {
     id: "faq-4",
     question: "How can school data be updated?",
-    answer:
-      "You can change your order within 24 hours of placing it by contacting our customer service team.",
+    answer: (
+      <div>
+        <p>School data is primarily sourced from open-data portals and synchronized automatically via RESTful APIs. Authorized administrators (e.g., local education offices) may submit update requests through:</p>
+        <ul className="list-disc pl-6 space-y-1 mt-2">
+          <li>Web Portal: Log in to the dashboard and navigate to Data Management &gt; Submit Updates.</li>
+          <li>Manual Verification: Submit validated data via CSV/Excel templates to the technical team for review.</li>
+        </ul>
+        <p className="mt-2">All updates undergo automated validation and manual approval to ensure accuracy.</p>
+      </div>
+    ),
   },
-    {
+  {
     id: "faq-5",
     question: "What privacy policy applies?",
-    answer:
-      "You can change your order within 24 hours of placing it by contacting our customer service team.",
+    answer: "The privacy policy governing this system adheres to Indonesia's data protection regulations, including the alignment with the Ministry of Education and Culture's (Kemdikbud) guidelines for educational data management. The system processes open data from verified sources while ensuring sensitive information is anonymized. User data collected during system interactions (e.g., login credentials, query logs) is protected under strict confidentiality protocols and used solely for analytical and operational purposes.",
   },
-    {
+  {
     id: "faq-6",
     question: "How can I contact customer service?",
-    answer:
-      "You can change your order within 24 hours of placing it by contacting our customer service team.",
+    answer: (
+      <div>
+        <p>For inquiries or technical support, stakeholders may reach the project team via:</p>
+        <ul className="list-disc pl-6 space-y-1 mt-2">
+          <li>Email: edukita.support@gmail.com</li>
+          <li>Phone: ‪+62 (274) 123456‬ (ext. 123)</li>
+          <li>
+            Office Address: Department of Electrical and Information Engineering, Universitas Gadjah Mada, Yogyakarta, Indonesia.
+          </li>
+          <li>
+            Operating hours: 09:00–16:00 WIB (Monday–Friday).
+          </li>
+        </ul>
+      </div>
+    ),
   },
 ];
 
