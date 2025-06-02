@@ -29,10 +29,15 @@ import { useRouter } from 'next/navigation';
 import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 const Navbar5 = () => {
-  const { theme } = useTheme();
-  const logoSrc = theme === 'dark' ? '/logo_light.svg' : '/logo.svg';
+  const { theme, resolvedTheme } = useTheme();
+  const [logoSrc, setLogoSrc] = useState('/logo.svg');
+  useEffect(() => {
+    const isDark = theme === 'dark' || resolvedTheme === 'dark';
+    setLogoSrc(isDark ? '/logo_light.svg' : '/logo.svg');
+  }, [theme, resolvedTheme]);
   const features = [
     {
       title: "Dashboard",
