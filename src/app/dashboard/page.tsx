@@ -1,85 +1,219 @@
-"use client";
+"use client"
 
-import { MapboxMap } from "@/components/mapbox-map";
-import { useState } from "react";
+import { useState } from "react"
+import { SidebarInset } from "@/components/ui/sidebar"
+import { useSchools } from "@/hooks/use-school"
+import { School } from "@/types/school"
+import { AlertCircle, Loader2 } from "lucide-react"
+import { DashboardOverview } from "@/components/dashboard-overview"
+import { SchoolMap } from "@/components/school-map"
+import { SchoolFilters } from "@/components/school-filters"
+import { DashboardHeader } from "@/components/dashboard-header"
+import { SchoolDetailDialog } from "@/components/school-detail-dialog"
+import { AppSidebar } from "@/components/app-sidebar"
+import { SettingsDialog } from "@/components/settings-dialog"
+import { toast } from "sonner"
+import { SchoolDataTable } from "@/components/school-data-table"
 
-export default function Home() {
-  const [activeStyle, setActiveStyle] = useState("mapbox://styles/mapbox/streets-v12");
+export default function Dashboard() {
+  const { 
+    schools,
+    filteredSchools,
+    loading,
+    error,
+    filterSchools,
+    getUniqueKabupaten,
+    getUniqueKecamatan,
+    addSchool,
+    editSchool,
+    deleteSchool,
+   } =
+    useSchools()
 
-  const mapStyles = [
-    { id: "streets-v12", name: "Streets", style: "mapbox://styles/mapbox/streets-v12" },
-    { id: "satellite-streets-v12", name: "Satellite", style: "mapbox://styles/mapbox/satellite-streets-v12" },
-    { id: "dark-v11", name: "Dark", style: "mapbox://styles/mapbox/dark-v11" }
-  ];
+  const [filtersVisible, setFiltersVisible] = useState(true)
+  const [selectedSchool, setSelectedSchool] = useState<School | null>(null)
+  const [isDetailDialogOpen, setIsDetailDialogOpen] = useState(false)
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false)
+  const [currentPage, setCurrentPage] = useState("dashboard")
+
+  const [mapSettings, setMapSettings] = useState({
+    style: "mapbox://styles/mapbox/streets-v12",
+    showTraffic: false,
+    show3D: false,
+    showLabels: true,
+    markerSize: 0.8,
+  })
+
+  const handleMapSettingsChange = (newSettings: Partial<typeof mapSettings>) => {
+    setMapSettings((prev) => ({ ...prev, ...newSettings }))
+  }
+
+
+   const handleSchoolSelect = (school: School) => {
+    setSelectedSchool(school)
+    setIsDetailDialogOpen(true)
+  }
+
+  const handlePageChange = (page: string) => {
+    setCurrentPage(page)
+  }
+
+  const handleSettingsClick = () => {
+    setIsSettingsOpen(true)
+  }
+
+  const handleAddSchool = (school: Partial<School>) => {
+    addSchool(school)
+    toast.success(`${school.nama} telah ditambahkan ke database.`, {
+      description: "Sekolah berhasil ditambahkan"
+    })
+  }
+
+  const handleEditSchool = (school: School) => {
+    editSchool(school)
+    toast.success(`Perubahan pada ${school.nama} telah disimpan.`, {
+      description: "Data sekolah diperbarui"
+    })
+  }
+
+  const handleDeleteSchool = (school: School) => {
+    deleteSchool(school)
+    toast.error(`${school.nama} telah dihapus dari database.`, {
+      description: "Sekolah dihapus"
+    })
+  }
+
+  const toggleFiltersVisibility = () => {
+    setFiltersVisible(!filtersVisible)
+  }
+  
+  const renderContent = () => {
+    if (loading) {
+      return (
+        <div className="flex-1">
+          <div className="flex items-center justify-center h-full gap-2">
+            <Loader2 className="w-6 h-6 animate-spin" />
+            <span>Memuat data sekolah...</span>
+          </div>
+        </div>
+      )
+    }
+
+    if (error) {
+      return (
+        <div className="flex-1">
+          <div className="flex items-center justify-center h-full gap-2">
+            <AlertCircle className="w-6 h-6" />
+            <span>Error: {error}</span>
+          </div>
+        </div>
+      )
+    }
+
+    switch (currentPage) {
+      case "dashboard":
+        return (
+          <div className="flex-1 p-6">
+            <DashboardOverview schools={schools} />
+          </div>
+        )
+
+      case "map":
+        return (
+          <div className="flex-1">
+            <div className="h-full w-full relative">
+              <SchoolMap 
+                schools={filteredSchools}
+                onSchoolSelect={handleSchoolSelect}
+                mapStyle={mapSettings.style}
+                showTraffic={mapSettings.showTraffic}
+                show3D={mapSettings.show3D}
+                showLabels={mapSettings.showLabels}
+                markerSize={mapSettings.markerSize} />
+
+              {/* Responsive Filters Panel */}
+              <SchoolFilters
+                  onFilterChange={filterSchools}
+                  getUniqueKabupaten={getUniqueKabupaten}
+                  getUniqueKecamatan={getUniqueKecamatan}
+                  totalSchools={schools.length}
+                  filteredCount={filteredSchools.length}
+                  isVisible={filtersVisible}
+                  onToggleVisibility={toggleFiltersVisibility}
+              />
+              {/* Legend */}
+              <div className="absolute top-4 right-4 z-10 ">
+                <div className="bg-card backdrop-blur-sm rounded-lg p-3 shadow-lg border">
+                  <div className="text-xs font-medium mb-2">Legend</div>
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                      <span className="text-xs">Sekolah Dasar</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                      <span className="text-xs">Sekolah Menengah Pertama</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                      <span className="text-xs">Sekolah Menengah Atas</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                      <span className="text-xs">Sekolah Menengah Kejuruan</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      case "data":
+        return (
+          <div className="flex-1 p-6">
+            <SchoolDataTable
+              schools={schools}
+              onSchoolSelect={handleSchoolSelect}
+              onAddSchool={handleAddSchool}
+              onEditSchool={handleEditSchool}
+              onDeleteSchool={handleDeleteSchool}
+            />
+          </div>
+        )
+
+      default:
+        return (
+          <div className="flex-1 p-6">
+            <div className="text-center py-12">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Halaman {currentPage}</h2>
+              <p className="text-gray-600">Konten untuk halaman ini sedang dalam pengembangan.</p>
+            </div>
+          </div>
+        )
+    }
+  }
 
   return (
-    <div className="h-full w-full relative">
-      <MapboxMap mapStyle={activeStyle}/>
+    <>
+      <AppSidebar currentPage={currentPage} onPageChange={handlePageChange} onSettingsClick={handleSettingsClick} />
+      <SidebarInset>
+        <DashboardHeader currentPage={currentPage} />
+        {renderContent()}
 
-      {/* Floating Controls Overlay */}
-      <div className="absolute top-4 left-4 z-10 space-y-2">
-        {/* Stats Mini Cards */}
-        <div className="bg-white/95 backdrop-blur-sm rounded-lg p-3 shadow-lg border">
-          <div className="grid grid-cols-3 gap-4 text-center">
-            <div>
-              <div className="text-lg font-bold text-blue-600">2,847</div>
-              <div className="text-xs text-gray-600">Lokasi</div>
-            </div>
-            <div>
-              <div className="text-lg font-bold text-green-600">1,234</div>
-              <div className="text-xs text-gray-600">Users</div>
-            </div>
-            <div>
-              <div className="text-lg font-bold text-orange-600">89</div>
-              <div className="text-xs text-gray-600">Online</div>
-            </div>
-          </div>
-        </div>
+        {/* School Detail Dialog */}
+        <SchoolDetailDialog school={selectedSchool} open={isDetailDialogOpen} onOpenChange={setIsDetailDialogOpen} />
 
-        {/* Map Style Controls */}
-        <div className="bg-white/95 backdrop-blur-sm rounded-lg p-3 shadow-lg border">
-          <div className="text-xs font-medium text-gray-700 mb-2">Map Style</div>
-          <div className="flex gap-1">
-            {mapStyles.map(style => (
-              <button 
-                key={style.id}
-                onClick={() => setActiveStyle(style.style)}
-                className={`px-2 py-1 text-xs rounded transition-colors ${
-                  activeStyle === style.style 
-                    ? "bg-blue-500 text-white" 
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                }`}
-              >
-                {style.name}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-      {/* Legend */}
-      <div className="absolute top-4 right-4 z-10">
-        <div className="bg-white/95 backdrop-blur-sm rounded-lg p-3 shadow-lg border">
-          <div className="text-xs font-medium text-gray-700 mb-2">Legend</div>
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-              <span className="text-xs">Jakarta Pusat</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-              <span className="text-xs">Landmark</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <span className="text-xs">Bisnis</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-              <span className="text-xs">Komersial</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+        {/* Settings Dialog */}
+        <SettingsDialog
+          open={isSettingsOpen}
+          onOpenChange={setIsSettingsOpen}
+          onMapStyleChange={(style) => handleMapSettingsChange({ style })}
+          currentMapStyle={mapSettings.style}
+          mapSettings={mapSettings}
+          onMapSettingsChange={handleMapSettingsChange}
+        />
+
+      </SidebarInset>
+    </>
   )
 }
