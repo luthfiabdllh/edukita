@@ -1,50 +1,51 @@
 "use client"
 
 import { SidebarTrigger } from "@/components/ui/sidebar"
-import { Separator } from "@/components/ui/separator"
 import {
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Search, Bell, Settings } from "lucide-react"
+import { School, MapPin, BarChart3, Home } from "lucide-react"
 
-export function DashboardHeader() {
+interface DashboardHeaderProps {
+  currentPage: string
+}
+
+export function DashboardHeader({ currentPage }: DashboardHeaderProps) {
+  const getPageInfo = (page: string) => {
+    switch (page) {
+      case "dashboard":
+        return { title: "Dashboard", icon: Home, description: "Overview Infrastruktur Pendidikan DIY" }
+      case "map":
+        return { title: "Pemetaan Sekolah", icon: MapPin, description: "Visualisasi Peta Sekolah DIY" }
+      case "analytics":
+        return { title: "Analytics", icon: BarChart3, description: "Analisis Data Pendidikan" }
+      default:
+        return { title: page, icon: School, description: "Sistem Informasi Pendidikan" }
+    }
+  }
+
+  const pageInfo = getPageInfo(currentPage)
+
   return (
     <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-      <SidebarTrigger className="-ml-1" />
-      <Separator orientation="vertical" className="mr-2 h-4" />
+      <SidebarTrigger className="-ml-1 mr-2" />
 
       <Breadcrumb>
         <BreadcrumbList>
-          <BreadcrumbItem className="hidden md:block">
-            <BreadcrumbLink href="#">Dashboard</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator className="hidden md:block" />
           <BreadcrumbItem>
-            <BreadcrumbPage>Peta</BreadcrumbPage>
+            <BreadcrumbPage className="flex items-center gap-2">
+              <pageInfo.icon className="w-4 h-4" />
+              {pageInfo.title}
+            </BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
 
       <div className="ml-auto flex items-center gap-2">
-        <div className="relative hidden md:block">
-          <Search className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input placeholder="Cari lokasi..." className="pl-8 w-64" />
-        </div>
-
-        <Button variant="ghost" size="icon">
-          <Bell className="h-4 w-4" />
-        </Button>
-
-        <Button variant="ghost" size="icon">
-          <Settings className="h-4 w-4" />
-        </Button>
+        <div className="text-sm text-muted-foreground">{pageInfo.description}</div>
       </div>
     </header>
   )
