@@ -28,8 +28,11 @@ import {
 import { useRouter } from 'next/navigation';
 import Image from "next/image";
 import Link from "next/link";
+import { useTheme } from "next-themes";
 
 const Navbar5 = () => {
+  const { theme } = useTheme();
+  const logoSrc = theme === 'dark' ? '/logo_light.svg' : '/logo.svg';
   const features = [
     {
       title: "Dashboard",
@@ -76,8 +79,9 @@ const Navbar5 = () => {
             href="/"
             className="flex items-center gap-2"
           >
+
             <Image
-              src="logo.svg"
+              src={logoSrc}
               width={32}
               height={32}
               className="w-32"
@@ -147,11 +151,13 @@ const Navbar5 = () => {
             <SheetContent side="top" className="max-h-screen overflow-auto">
               <SheetHeader>
                 <SheetTitle>
-                  <a
+                  <Link
                     href="https://www.shadcnblocks.com"
                     className="flex items-center gap-2"
                   >
-                    <img
+                    <Image
+                      width={32}
+                      height={32}
                       src="https://shadcnblocks.com/images/block/logos/shadcnblockscom-icon.svg"
                       className="max-h-8"
                       alt="Shadcn UI Navbar"
@@ -159,7 +165,7 @@ const Navbar5 = () => {
                     <span className="text-lg font-semibold tracking-tighter">
                       Shadcnblocks.com
                     </span>
-                  </a>
+                  </Link>
                 </SheetTitle>
               </SheetHeader>
               <div className="flex flex-col p-4">
@@ -171,7 +177,7 @@ const Navbar5 = () => {
                     <AccordionContent>
                       <div className="grid md:grid-cols-2">
                         {features.map((feature, index) => (
-                          <a
+                          <Link
                             href={feature.href}
                             key={index}
                             className="rounded-md p-3 transition-colors hover:bg-muted/70"
@@ -184,22 +190,22 @@ const Navbar5 = () => {
                                 {feature.description}
                               </p>
                             </div>
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
                 <div className="flex flex-col gap-6">
-                  <a href="#" className="font-medium">
+                  <Link href="#" className="font-medium">
                     Templates
-                  </a>
-                  <a href="#" className="font-medium">
+                  </Link>
+                  <Link href="#" className="font-medium">
                     Blog
-                  </a>
-                  <a href="#" className="font-medium">
+                  </Link>
+                  <Link href="#" className="font-medium">
                     Pricing
-                  </a>
+                  </Link>
                 </div>
                 <div className="mt-6 flex flex-col gap-4">
                   <Button onClick={buttonClick}>Start for free</Button>
