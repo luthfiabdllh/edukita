@@ -1,8 +1,15 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import type { School } from "../types/school"
-import { getDummySchools } from "@/data/dummySchool"
+import type { School, SchoolApiResponse } from "../types/school"
+import { 
+  getAllSchools,
+  getSchoolsByLevel, 
+  addSchool as apiAddSchool, 
+  updateSchool as apiUpdateSchool, 
+  deleteSchool as apiDeleteSchool
+} from "@/services/api"
+
 
 export function useSchools() {
   const [schools, setSchools] = useState<School[]>([])
@@ -18,9 +25,8 @@ export function useSchools() {
     try {
       setLoading(true)
       setError(null)
-
-      // Use dummy data instead of API
-      const data = await getDummySchools()
+      
+      const data = await getAllSchools()
 
       setSchools(data.data)
       setFilteredSchools(data.data)
@@ -75,31 +81,52 @@ export function useSchools() {
     return [...new Set(kecamatan)]
   }
 
-  const addSchool = (newSchool: Partial<School>) => {
-    // Generate a unique NPSN if not provided
-    const schoolToAdd = {
-      ...newSchool,
-      npsn: newSchool.npsn || `${Date.now()}`,
-    } as School
-
-    setSchools((prevSchools) => [...prevSchools, schoolToAdd])
-    setFilteredSchools((prevFiltered) => [...prevFiltered, schoolToAdd])
+  const addSchool = async (newSchool: Partial<School>) => {
+    try {
+      setLoading(true)
+      
+      await apiAddSchool(newSchool)
+      await fetchSchools() // Refresh the list after adding
+      
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to add school")
+      throw err
+    } finally {
+      setLoading(false)
+    }
   }
 
-  const editSchool = (updatedSchool: School) => {
-    setSchools((prevSchools) =>
-      prevSchools.map((school) => (school.npsn === updatedSchool.npsn ? updatedSchool : school)),
-    )
-
-    setFilteredSchools((prevFiltered) =>
-      prevFiltered.map((school) => (school.npsn === updatedSchool.npsn ? updatedSchool : school)),
-    )
+  const editSchool = async (updatedSchool: School) => {
+    try {
+      setLoading(true)
+      
+      await apiUpdateSchool(updatedSchool.npsn, updatedSchool)
+      await fetchSchools() // Refresh the list after editing
+      
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to update school")
+      throw err
+    } finally {
+      setLoading(false)
+    }
   }
 
-  const deleteSchool = (schoolToDelete: School) => {
-    setSchools((prevSchools) => prevSchools.filter((school) => school.npsn !== schoolToDelete.npsn))
-
-    setFilteredSchools((prevFiltered) => prevFiltered.filter((school) => school.npsn !== schoolToDelete.npsn))
+  const deleteSchool = async (schoolToDelete: School) => {
+    try {
+      setLoading(true)
+      
+      await apiDeleteSchool(schoolToDelete.npsn)
+      
+      // Update local state
+      setSchools((prevSchools) => prevSchools.filter((school) => school.npsn !== schoolToDelete.npsn))
+      setFilteredSchools((prevFiltered) => prevFiltered.filter((school) => school.npsn !== schoolToDelete.npsn))
+      
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to delete school")
+      throw err
+    } finally {
+      setLoading(false)
+    }
   }
 
   return {
