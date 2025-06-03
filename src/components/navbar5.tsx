@@ -30,6 +30,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { ThemeToggle } from "./themeToggle";
 
 const Navbar5 = () => {
   const { theme, resolvedTheme } = useTheme();
@@ -145,6 +146,7 @@ const Navbar5 = () => {
             </NavigationMenuList>
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
+            <ThemeToggle />
             <Button onClick={buttonClick}>Start for free</Button>
           </div>
           <Sheet>
@@ -213,6 +215,7 @@ const Navbar5 = () => {
                   </Link>
                 </div>
                 <div className="mt-6 flex flex-col gap-4">
+                  <ThemeToggle />
                   <Button onClick={buttonClick}>Start for free</Button>
                 </div>
               </div>

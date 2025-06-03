@@ -1,5 +1,9 @@
+"use client";
+
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 const sections = [
@@ -40,10 +44,16 @@ interface Footer7Props {
 const Footer7 = ({
   logo = {
     url: "/",
-    src: "logo.svg",
+    src: "logoSrc",
     alt: "logo",
   },
 }: Footer7Props) => {
+  const { theme, resolvedTheme } = useTheme();
+  const [logoSrc, setLogoSrc] = useState('/logo.svg');
+  useEffect(() => {
+    const isDark = theme === 'dark' || resolvedTheme === 'dark';
+    setLogoSrc(isDark ? '/logo_light.svg' : '/logo.svg');
+  }, [theme, resolvedTheme]);
   return (
     <section className="py-32" id="footer">
       <div className="container">
@@ -55,7 +65,7 @@ const Footer7 = ({
                 <Image
                   width={100}
                   height={40}
-                  src={logo.src}
+                  src={logoSrc}
                   alt={logo.alt}
                   className="h-8"
                 />
