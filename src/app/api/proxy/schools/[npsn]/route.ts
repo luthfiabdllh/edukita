@@ -1,9 +1,8 @@
-const EXTERNAL_API = process.env.NEXT_PUBLIC_API_BASE_URL || "https://intero-rest-api.vercel.app/api/sekolah"
-
+const EXTERNAL_API = process.env.NEXT_PUBLIC_API_BASE_URL
 // GET a specific school
-export async function GET(req: Request, { params }: { params: { npsn: string } }) {
+export async function GET(req: Request, { params }: { params: Promise<{ npsn: string }> }) {
   try {
-    const { npsn } = params
+    const npsn = (await params).npsn
     const response = await fetch(`${EXTERNAL_API}/${npsn}`)
     
     if (!response.ok) {
@@ -19,9 +18,9 @@ export async function GET(req: Request, { params }: { params: { npsn: string } }
 }
 
 // PUT (update) a school
-export async function PUT(req: Request, { params }: { params: { npsn: string } }) {
+export async function PUT(req: Request, { params }: { params: Promise<{ npsn: string }> }) {
   try {
-    const { npsn } = params
+    const npsn = (await params).npsn
     const body = await req.json()
     
     const response = await fetch(`${EXTERNAL_API}/${npsn}`, {
@@ -41,9 +40,9 @@ export async function PUT(req: Request, { params }: { params: { npsn: string } }
 }
 
 // DELETE a school
-export async function DELETE(req: Request, { params }: { params: { npsn: string } }) {
+export async function DELETE(req: Request, { params }: { params: Promise<{ npsn: string }> }) {
   try {
-    const { npsn } = params
+    const npsn = (await params).npsn
     const response = await fetch(`${EXTERNAL_API}/${npsn}`, {
       method: 'DELETE',
     })
