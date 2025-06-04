@@ -178,8 +178,9 @@ const Navbar5 = () => {
               <div className="flex flex-col p-4">
                 <Accordion type="single" collapsible className="mt-4 mb-2">
                   <AccordionItem value="solutions" className="border-none">
-                    <AccordionTrigger className="text-base hover:no-underline">
-                      Features
+                    <AccordionTrigger className="text-base flex items-center hover:no-underline">
+                      <span></span>
+                      <span>Products</span>
                     </AccordionTrigger>
                     <AccordionContent>
                       <div className="grid md:grid-cols-2">
@@ -203,20 +204,20 @@ const Navbar5 = () => {
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
-                <div className="flex flex-col gap-6">
-                  <Link href="#" className="font-medium">
-                    Templates
+                <div className="flex flex-col gap-6 items-center">
+                  <Link href="#hero" className="font-medium">
+                    About
                   </Link>
-                  <Link href="#" className="font-medium">
-                    Blog
+                  <Link href="#team" className="font-medium">
+                    Team
                   </Link>
-                  <Link href="#" className="font-medium">
-                    Pricing
+                  <Link href="#contact" className="font-medium">
+                    Contact
                   </Link>
                 </div>
-                <div className="mt-6 flex flex-col gap-4">
+                <div className="mt-6 flex flex-col gap-4 items-center">
                   <ThemeToggle />
-                  <Button onClick={buttonClick}>Start for free</Button>
+                  <Button onClick={buttonClick} className="w-full">Start for free</Button>
                 </div>
               </div>
             </SheetContent>
