@@ -143,7 +143,7 @@ useEffect(() => {
               </div>
             </CardContent>
             
-            <CardFooter className="flex flex-col">
+            <CardFooter className="flex flex-col mt-4">
               <Button 
                 type="submit"
                 className={cn("w-full", isLoading && "opacity-70")}
