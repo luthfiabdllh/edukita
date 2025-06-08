@@ -28,17 +28,9 @@ import {
 import { useRouter } from 'next/navigation';
 import Image from "next/image";
 import Link from "next/link";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 import { ThemeToggle } from "./themeToggle";
 
 const Navbar5 = () => {
-  const { theme, resolvedTheme } = useTheme();
-  const [logoSrc, setLogoSrc] = useState('/logo.svg');
-  useEffect(() => {
-    const isDark = theme === 'dark' || resolvedTheme === 'dark';
-    setLogoSrc(isDark ? '/logo_light.svg' : '/logo.svg');
-  }, [theme, resolvedTheme]);
   const features = [
     {
       title: "Dashboard",
@@ -85,13 +77,19 @@ const Navbar5 = () => {
             href="/"
             className="flex items-center gap-2"
           >
-
             <Image
-              src={logoSrc}
-              width={32}
-              height={32}
-              className="w-32"
-              alt="Shadcn UI Navbar"
+              src="/logo.svg"
+              alt="EduKita Logo"
+              width={128}
+              height={128}
+              className="w-32 logo-light"
+            />
+            <Image
+              src="/logo_light.svg"
+              alt="EduKita Logo"
+              width={128}
+              height={128}
+              className="w-32 logo-dark"
             />
           </Link>
           <NavigationMenu className="hidden lg:block">

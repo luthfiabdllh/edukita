@@ -84,6 +84,7 @@ const Hero1 = ({
             width={500}
             height={500}
             className="w-full rounded-md"
+            suppressHydrationWarning={true}
           />
         </div>
       </div>

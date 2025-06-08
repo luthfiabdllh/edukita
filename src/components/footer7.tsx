@@ -63,11 +63,20 @@ const Footer7 = ({
             <div className="flex items-center gap-2 lg:justify-start">
               <Link href="/">
                 <Image
-                  width={100}
-                  height={40}
-                  src={logoSrc}
-                  alt={logo.alt}
-                  className="h-8"
+                  src="/logo.svg"
+                  alt="EduKita Logo"
+                  width={128}
+                  height={128}
+                  className="h-8 logo-light"
+                  suppressHydrationWarning={true}
+                />
+                <Image
+                  src="/logo_light.svg"
+                  alt="EduKita Logo"
+                  width={128}
+                  height={128}
+                  className="h-8 logo-dark"
+                  suppressHydrationWarning={true}
                 />
               </Link>
             </div>

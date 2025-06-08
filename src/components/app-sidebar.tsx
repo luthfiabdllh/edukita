@@ -1,6 +1,6 @@
 "use client"
 
-import { School, Map, Settings, Home } from "lucide-react"
+import { School, Map, Settings, Home, LogOut } from "lucide-react"
 
 import {
   Sidebar,
@@ -18,8 +18,9 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Image from "next/image"
 import Link from "next/link"
-import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
+import { signOut, useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
 
 interface AppSidebarProps {
   currentPage: string
@@ -28,18 +29,12 @@ interface AppSidebarProps {
 }
 
 export function AppSidebar({ currentPage, onPageChange, onSettingsClick }: AppSidebarProps) {
-  const { theme, resolvedTheme } = useTheme();
-  
-
-  const [logoSrc, setLogoSrc] = useState('/logo.svg');
-  
-  useEffect(() => {
-    const isDark = theme === 'dark' || resolvedTheme === 'dark';
-    setLogoSrc(isDark ? '/logo_light.svg' : '/logo.svg');
-  }, [theme, resolvedTheme]);
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  const isAdmin = session?.user?.role === "admin";
 
   // Menu items
-  const items = [
+  const commonItems = [
     {
       title: "Dashboard",
       url: "dashboard",
@@ -50,12 +45,17 @@ export function AppSidebar({ currentPage, onPageChange, onSettingsClick }: AppSi
       url: "map",
       icon: Map,
     },
+  ]
+
+  const adminItems = [
     {
       title: "Data Sekolah",
       url: "data",
       icon: School,
     },
-  ]
+  ];
+
+  const items = isAdmin ? [...commonItems, ...adminItems] : commonItems;
 
   const settingsItems = [
     {
@@ -66,6 +66,18 @@ export function AppSidebar({ currentPage, onPageChange, onSettingsClick }: AppSi
     },
   ]
 
+  const handleLogout = async () => {
+    await signOut({ redirect: false });
+    router.push('/auth/signin');
+  };
+
+  useEffect(() => {
+    if (currentPage === 'data' && !isAdmin && status !== 'loading') {
+      onPageChange('dashboard');
+      router.push('/dashboard');
+    }
+  }, [currentPage, isAdmin, status, onPageChange, router]);
+
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
@@ -74,12 +86,19 @@ export function AppSidebar({ currentPage, onPageChange, onSettingsClick }: AppSi
             <SidebarMenuButton  size="lg" asChild className="hover:bg-transparent">
               <Link href="#" className="flex items-center gap-2">
                 <Image
-                  src={logoSrc}
-                  alt="Logo"
-                  width={24}
-                  height={24}
-                  className="size-16"
-                /> 
+                  src="/logo.svg"
+                  alt="EduKita Logo"
+                  width={128}
+                  height={128}
+                  className="size-16 logo-light"
+                />
+                <Image
+                  src="/logo_light.svg"
+                  alt="EduKita Logo"
+                  width={128}
+                  height={128}
+                  className="size-16 logo-dark"
+                />
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -135,21 +154,32 @@ export function AppSidebar({ currentPage, onPageChange, onSettingsClick }: AppSi
 
       <SidebarFooter>
         <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
-              <a href="#" className="flex items-center gap-2">
+            {session ? (
+            <SidebarMenuItem>
+              <SidebarMenuButton size="lg" asChild>
+              <div className="flex items-center gap-2">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src="/placeholder.svg?height=32&width=32" alt="User" />
-                  <AvatarFallback className="rounded-lg">DY</AvatarFallback>
+                <AvatarImage src="/placeholder.svg?height=32&width=32" alt="User" />
+                <AvatarFallback className="rounded-lg">
+                  {session.user?.name?.substring(0, 2) || "?"}
+                </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">Dinas Pendidikan</span>
-                  <span className="truncate text-xs">DIY</span>
+                <span className="truncate font-semibold">{session.user?.name}</span>
+                <span className="truncate text-xs">{isAdmin ? "Admin" : "User"}</span>
                 </div>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+                <button 
+                onClick={handleLogout}
+                className="ml-2 p-1 rounded-md hover:bg-muted"
+                title="Logout"
+                >
+                <LogOut size={16} />
+                </button>
+              </div>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            ) : null}
+          </SidebarMenu>
       </SidebarFooter>
 
       <SidebarRail />

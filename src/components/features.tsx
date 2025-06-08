@@ -52,6 +52,7 @@ export default function Features() {
                   width={32}
                   height={32}
                   className="w-12 h-12"
+                  suppressHydrationWarning={true}
                 />
               </div>
               <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
