@@ -68,10 +68,10 @@ export default function SignIn() {
     }
     };
 
-useEffect(() => {
+  useEffect(() => {
     if (status === 'authenticated' && session) {
-      console.log('User already authenticated, redirecting to home');
-      router.push('/');
+      console.log('User already authenticated, redirecting to dashboard');
+      router.push('/dashboard');
       return;
     }
   }, [session, status, router]);
