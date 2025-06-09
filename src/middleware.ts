@@ -22,19 +22,13 @@ export default withAuth(
       authorized: ({ token, req }) => {
         const pathname = req.url ? new URL(req.url).pathname : "";
 
-        console.log("Checking authorization for:", pathname);
-        console.log("Token:", !!token);
-        console.log("Role:", token?.role);
-
-        if (pathname.startsWith("/auth/signin")) {
+        // Allow public access to /auth/signin and /dashboard (even if not logged in)
+        if (pathname.startsWith("/auth/signin") || pathname.startsWith("/dashboard")) {
           return true;
         }
 
-        if (pathname.startsWith("/dashboard") || pathname.startsWith("/data")) {
-          return !!token && token.role === "admin";
-        }
-
-        return true;
+        // Require authentication for other protected routes
+        return !!token;
       },
     },
     pages: {
