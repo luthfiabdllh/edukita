@@ -2,6 +2,13 @@
 
 EduKita is an innovative digital platform designed to map and manage educational infrastructure data in the Special Region of Yogyakarta (DIY). This system provides interactive visualization, comprehensive data analysis, and user-friendly school information management.
 
+## 📸 Preview
+
+![EduKita Interactive Map](https://raw.githubusercontent.com/luthfiabdllh/edukita/main/public/preview-map.png)
+
+*Interactive map showing school distribution across Yogyakarta with color-coded markers based on education level and comprehensive filtering options.*
+
+
 ## 🌟 Key Features
 
 ### 📊 Dashboard Analytics
