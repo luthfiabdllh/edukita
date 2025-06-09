@@ -48,6 +48,8 @@ EduKita is an innovative digital platform designed to map and manage educational
 - **React Hook Form**: Form state management
 - **Zod**: Schema validation
 - **Sonner**: Toast notifications
+- **REST API Backend**: [Backend Documentation](https://github.com/Asyfdzaky/interoRestAPI)
+
 
 ### Development Tools
 - **ESLint**: Code linting
@@ -118,6 +120,20 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+## 🔐 Admin Access
+
+To access the admin dashboard, use the following credentials:
+
+### Admin Login
+- **URL**: [http://localhost:3000/auth/signin](http://localhost:3000/auth/signin)
+- **Email**: `admin@example.com`
+- **Password**: `123456`
+
+After successful login, you will be redirected to the dashboard with full administrative privileges including:
+- Complete access to school data management
+- Analytics and reporting features
+- Map customization and settings
+
 ## 📊 Main Components
 
 ### DashboardOverview
@@ -159,9 +175,15 @@ The application is optimized for various screen sizes:
 ## 🔒 Authentication
 
 The system uses NextAuth.js for authentication:
-- **Admin Login**: Full access to all features
+- **Admin Login**: Full access to all features with credentials above
 - **Session Management**: Automatic session handling
 - **Protected Routes**: Route protection for admin pages
+
+### Security Features
+- Secure password hashing
+- Session-based authentication
+- Protected API endpoints
+- Role-based access control
 
 ## 📈 Performance
 
@@ -251,6 +273,7 @@ This project uses the MIT License. See the `LICENSE` file for details.
 
 - **Live Demo**: [https://edukita-xi.vercel.app/](https://edukita-xi.vercel.app/)
 - **GitHub**: [https://github.com/luthfiabdllh/edukita](https://github.com/luthfiabdllh/edukita)
+- **Backend Documentation**: [https://github.com/Asyfdzaky/interoRestAPI](https://github.com/Asyfdzaky/interoRestAPI)
 
 ## 📋 Changelog
 
@@ -259,7 +282,7 @@ This project uses the MIT License. See the `LICENSE` file for details.
 - 🗺️ Interactive map with Mapbox
 - 📊 Dashboard analytics
 - 🏫 School management system
-- 🔐 Authentication system
+- 🔐 Authentication system with admin credentials
 - 📱 Responsive design
 
 ---
