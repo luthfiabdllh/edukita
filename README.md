@@ -4,7 +4,7 @@ EduKita is an innovative digital platform designed to map and manage educational
 
 ## 📸 Preview
 
-![EduKita Interactive Map](https://raw.githubusercontent.com/luthfiabdllh/edukita/main/public/preview-map.png)
+![EduKita Interactive Map](https://raw.githubusercontent.com/luthfiabdllh/edukita/master/public/preview-map.png)
 
 *Interactive map showing school distribution across Yogyakarta with color-coded markers based on education level and comprehensive filtering options.*
 
